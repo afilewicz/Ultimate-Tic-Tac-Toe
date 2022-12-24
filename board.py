@@ -11,15 +11,20 @@ class Board:
             if x % 3 == 0 and x != 0:
                 print(' '+'-'*width_board)
             print(' '+'-'*width_board)
-            self._areas.append([])
+            if x % 3 == 0:
+                self._areas.append([])
+                self._areas.append([])
+                self._areas.append([])
             for y in range(9):
+                square_num = (x//3)*3+y//3
+                square_column = (x % 3)*3 + y % 3
                 if y % 3 == 0 and y != 0:
                     a = '|'
                 else:
                     a = ''
                 print(' |'+a, end='  ')
-                self._areas[x].append(f'{x}, {y}')
-                print(self._areas[x][y], end=' ')
+                self._areas[square_num].append(' ')
+                print(self._areas[square_num][square_column], end=' ')
             print(' |')
         print(' '+'-'*width_board)
 
@@ -27,8 +32,8 @@ class Board:
     def areas(self):
         return self._areas
 
-    def set(self, row, column, sign):
-        self._areas[column][row] = sign
+    def set(self, square, column, sign):
+        self._areas[square][column] = sign
 
 
 board = Board()

@@ -8,9 +8,9 @@ computer = Computer('O')
 game = Game(player, computer)
 while game.result is None:
     game.board.make_board()
-    print("Wprowadz wspolrzedna 'X'")
+    print("Wprowadz numer kwadratu:")
     x = int(input())
-    print("Wprowadz wspolrzedna 'Y'")
+    print("Wprowadz numer kolumny w kwadracie:")
     y = int(input())
     game.round(x, y)
 if game.result is True:
