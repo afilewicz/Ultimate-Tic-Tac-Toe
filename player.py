@@ -17,6 +17,7 @@ class Player:
             raise InvalidSignError("Sign must be a 'X' or 'O'")
         else:
             self._sign = sign
+        self.winned_squares = []
 
     @property
     def name(self):
@@ -37,7 +38,8 @@ class Player:
                 continue
             try:
                 if game.board.areas[square][field] == ' ':
-                    if square in game.board.winned_squares_computer or square in game.board.winned_squares_player:
+                    if square in game.computer.winned_squares or\
+                            square in game.player.winned_squares:
                         print("This square is already winned")
                         continue
                     else:
@@ -47,5 +49,3 @@ class Player:
                     print("This field is filled")
             except IndexError:
                 print("Must be a number from 0 to 8")
-
-# ValueError przy nacisnieciu entera

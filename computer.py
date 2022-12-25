@@ -2,8 +2,9 @@ from random import randint
 
 
 class Computer:
-    def __init__(self, sign):
-        self._sign = sign
+    def __init__(self):
+        self._sign = ''
+        self.winned_squares = []
 
     @property
     def sign(self):
