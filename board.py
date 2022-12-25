@@ -5,13 +5,15 @@ class Board:
 
     def __init__(self):
         self._areas = []
+        self.winned_squares_player = []
+        self.winned_squares_computer = []
 
     def make_board(self):
         for x in range(9):
             if x % 3 == 0 and x != 0:
                 print(' '+'-'*width_board)
             print(' '+'-'*width_board)
-            if x % 3 == 0:
+            if x % 3 == 0 and len(self._areas) < 9:
                 self._areas.append([])
                 self._areas.append([])
                 self._areas.append([])
@@ -23,7 +25,8 @@ class Board:
                 else:
                     a = ''
                 print(' |'+a, end='  ')
-                self._areas[square_num].append(' ')
+                if len(self.areas[square_num]) < 9:
+                    self._areas[square_num].append(' ')
                 print(self._areas[square_num][square_column], end=' ')
             print(' |')
         print(' '+'-'*width_board)

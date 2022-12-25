@@ -9,7 +9,10 @@ class Computer:
     def sign(self):
         return self._sign
 
-    def move(self):
-        row = randint(0, 8)
-        column = randint(0, 8)
-        return column, row
+    def move(self, game):
+        while 1:
+            square = randint(0, 8)
+            field = randint(0, 8)
+            if game.board.areas[square][field] == ' ':
+                game.board.set(square, field, self.sign)
+                return square
