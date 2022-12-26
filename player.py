@@ -49,3 +49,5 @@ class Player:
                     print("This field is filled")
             except IndexError:
                 print("Must be a number from 0 to 8")
+
+# zmiana malych liter na duze

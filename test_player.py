@@ -22,3 +22,11 @@ def test_init_player_no_name():
 def test_init_player_invalid_sign():
     with pytest.raises(InvalidSignError):
         Player('Adam', '@')
+
+
+# def test_player_move():
+#     player = Player('Adam', 'O')
+#     game = Game(player, computer=Computer)
+#     square = 7
+#     field = 3
+#     player.move(game)

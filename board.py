@@ -6,30 +6,29 @@ class Board:
 
     def __init__(self):
         self._areas = []
-        for x in range(9):
-            if x % 3 == 0 and len(self._areas) < 9:
+        for row in range(dimension**2):
+            if row % 3 == 0:
                 self._areas.append([])
                 self._areas.append([])
                 self._areas.append([])
-            for y in range(9):
-                square_num = (x//3)*3+y//3
-                if len(self.areas[square_num]) < 9:
-                    self._areas[square_num].append(' ')
+            for column in range(dimension**2):
+                square_num = (row//3)*3+column//3
+                self._areas[square_num].append(' ')
 
     def draw_board(self):
-        for x in range(9):
-            if x % 3 == 0 and x != 0:
+        for row in range(dimension**2):
+            if row % 3 == 0 and row != 0:
                 print(' '+'-'*width_board)
             print(' '+'-'*width_board)
-            for y in range(9):
-                square_num = (x//3)*3+y//3
-                square_column = (x % 3)*3 + y % 3
-                if y % 3 == 0 and y != 0:
+            for column in range(dimension**2):
+                square_num = (row//3)*3+column//3
+                mini_square_num = (row % 3)*3 + column % 3
+                if column % 3 == 0 and column != 0:
                     a = '|'
                 else:
                     a = ''
                 print(' |'+a, end='  ')
-                print(self._areas[square_num][square_column], end=' ')
+                print(self._areas[square_num][mini_square_num], end=' ')
             print(' |')
         print(' '+'-'*width_board)
 
@@ -37,5 +36,5 @@ class Board:
     def areas(self):
         return self._areas
 
-    def set(self, square, column, sign):
-        self._areas[square][column] = sign
+    def set(self, square, mini_square_num, sign):
+        self._areas[square][mini_square_num] = sign
