@@ -11,6 +11,7 @@ def test_computer_init():
 #     computer = Computer()
 #     player = Player('Adam', 'O')
 #     game = Game(player, computer)
+#     assert game.computer.sign == 'X'
 
 #     def set_place(a, b):
 #         return 6, 7
