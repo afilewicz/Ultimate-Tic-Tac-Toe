@@ -1,17 +1,14 @@
-from board import Board
+from board import BigBoard, dimension
 
 
 def test_board_init():
-    board = Board()
-    assert len(board.areas) == 9
+    board = BigBoard()
+    assert len(board.areas) == dimension**2
     for area in board.areas:
-        assert len(area) == 9
+        assert len(area.single_arr) == dimension**2
 
 
 def test_set():
-    board = Board()
-    square = 1
-    mini_square = 7
-    sign = 'O'
-    board.set(square, mini_square, sign)
-    assert board.areas[1][7] == 'O'
+    board = BigBoard()
+    board.set(1, 7, 'O')
+    assert board.areas[1].single_arr[7] == 'O'

@@ -1,12 +1,11 @@
-from board import Board
+from board import BigBoard, dimension
 from player import Player
 from computer import Computer
-from random import randint
 
 
 class Game:
     def __init__(self, player: Player, computer: Computer):
-        self.board = Board()
+        self.board = BigBoard()
         self._player = player
         self._computer = computer
         self._players = [player, computer]
@@ -33,43 +32,38 @@ class Game:
         return self._result
 
     def checking_if_win_square(self, person, square):
-        if square != self.board.areas:
+        if square != self.board:
             fields = person.sign
             board = self.board.areas[square]
+            board.areas = self.board.areas[square]._single_arr
         else:
             fields = person.winned_squares
-            board = self.board.areas
-        column_0 = column_1 = column_2 = 0
-        row_0 = row_1 = row_2 = 0
-        diagonal_1 = diagonal_2 = 0
-        for i, field in enumerate(board):
+            board = self.board
+        columns = []
+        rows = []
+        diagonals = [0, 0]
+        for i in range(dimension):
+            columns.append(0)
+            rows.append(0)
+        for i, field in enumerate(board.areas):
             if field in fields:
-                if i % 3 == 0:
-                    column_0 += 1
-                elif i % 3 == 1:
-                    column_1 += 1
-                elif i % 3 == 2:
-                    column_2 += 1
-                if i//3 == 0:
-                    row_0 += 1
-                elif i//3 == 1:
-                    row_1 += 1
-                elif i//3 == 2:
-                    row_2 += 1
-                if i % 4 == 0:
-                    diagonal_1 += 1
-                if i % 4 == 2 or i == 4:
-                    diagonal_2 += 1
-        any_3 = [
-            column_0, column_1, column_2,
-            row_0, row_1, row_2,
-            diagonal_1, diagonal_2
-        ]
-        if 3 in any_3:
-            return True
+                for number in range(dimension):
+                    if i % dimension == number:
+                        columns[number] += 1
+                    if i // dimension == number:
+                        rows[number] += 1
+                if (i % dimension + i // dimension) == (dimension-1):
+                    diagonals[1] += 1
+                if i % (dimension+1) == 0:
+                    diagonals[0] += 1
+        any = columns + rows + diagonals
+        for counter in any:
+            if counter == dimension:
+                person.winned_squares.append(board)
+                return True
 
     def check_if_not_filled(self, square, field):
-        if self.board.areas[square][field] == ' ':
+        if self.board.areas[square]._single_arr[field] == ' ':
             return True
         else:
             return False

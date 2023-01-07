@@ -1,8 +1,9 @@
 from player import Player
-from computer import Computer
+# from computer import Computer
 from game import Game
 from time import sleep
 from random import randint
+from AI import AI
 
 
 class EmptyNameError(Exception):
@@ -14,17 +15,17 @@ class InvalidSignError(Exception):
     pass
 
 
-print("Enter your name:")
-name = input()
-if not name:
-    raise EmptyNameError
-print("Enter your sign. Must be 'X' or 'O'")
-sign = input()
-sign = sign.upper()
-if sign not in ['X', 'O']:
-    raise InvalidSignError("Sign must be a 'X' or 'O'")
-player = Player(name, sign)
-computer = Computer()
+# print("Enter your name:")
+# name = input()
+# if not name:
+#     raise EmptyNameError
+# print("Enter your sign. Must be 'X' or 'O'")
+# sign = input()
+# sign = sign.upper()
+# if sign not in ['X', 'O']:
+#     raise InvalidSignError("Sign must be a 'X' or 'O'")
+player = Player(name='Adam', sign='X')
+computer = AI()
 game = Game(player, computer)
 while game.result is None:
     game.board.draw_board()
@@ -37,6 +38,7 @@ while game.result is None:
                 else:
                     square = randint(0, 8)
                     field = randint(0, 8)
+                    # square, field = AI.defense(square, field, game.board, game.player)
                 try:
                     if game.check_if_not_filled(square, field):
                         if game.check_if_winned(square):
@@ -54,8 +56,7 @@ while game.result is None:
             except ValueError:
                 continue
         if game.checking_if_win_square(person, square):
-            person.winned_squares.append(game.board.areas[square])
-            if game.checking_if_win_square(person, game.board.areas):
+            if game.checking_if_win_square(person, game.board):
                 if person == game.player:
                     game._result = True
                 else:
