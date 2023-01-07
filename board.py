@@ -24,7 +24,7 @@ class BigBoard:
                 else:
                     a = ''
                 print(' |'+a, end='  ')
-                print(self._areas[square_num]._single_arr[mini_square_num], end=' ')
+                print(self._areas[square_num]._areas[mini_square_num], end=' ')
             print(' |')
         print(' '+'-'*width_board)
 
@@ -33,7 +33,7 @@ class BigBoard:
         return self._areas
 
     def set(self, square, mini_square_num, sign):
-        self._areas[square]._single_arr[mini_square_num] = sign
+        self._areas[square]._areas[mini_square_num] = sign
 
 
 board = BigBoard()

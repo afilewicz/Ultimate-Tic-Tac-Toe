@@ -31,39 +31,8 @@ class Game:
     def result(self):
         return self._result
 
-    def checking_if_win_square(self, person, square):
-        if square != self.board:
-            fields = person.sign
-            board = self.board.areas[square]
-            board.areas = self.board.areas[square]._single_arr
-        else:
-            fields = person.winned_squares
-            board = self.board
-        columns = []
-        rows = []
-        diagonals = [0, 0]
-        for i in range(dimension):
-            columns.append(0)
-            rows.append(0)
-        for i, field in enumerate(board.areas):
-            if field in fields:
-                for number in range(dimension):
-                    if i % dimension == number:
-                        columns[number] += 1
-                    if i // dimension == number:
-                        rows[number] += 1
-                if (i % dimension + i // dimension) == (dimension-1):
-                    diagonals[1] += 1
-                if i % (dimension+1) == 0:
-                    diagonals[0] += 1
-        any = columns + rows + diagonals
-        for counter in any:
-            if counter == dimension:
-                person.winned_squares.append(board)
-                return True
-
     def check_if_not_filled(self, square, field):
-        if self.board.areas[square]._single_arr[field] == ' ':
+        if self.board.areas[square].areas[field] == ' ':
             return True
         else:
             return False

@@ -4,6 +4,7 @@ from game import Game
 from time import sleep
 from random import randint
 from AI import AI
+from check import check_which_better, checking_if_win_square
 
 
 class EmptyNameError(Exception):
@@ -27,6 +28,7 @@ class InvalidSignError(Exception):
 player = Player(name='Adam', sign='X')
 computer = AI()
 game = Game(player, computer)
+round = 0
 while game.result is None:
     game.board.draw_board()
     for person in game.players:
@@ -34,19 +36,28 @@ while game.result is None:
             try:
                 if person == player:
                     square = int(input("Wprowadz numer kwadratu: "))
-                    field = int(input("Wprowadz numer kolumny w kwadracie: "))
+                    field = int(input("Wprowadz numer kwadratu w kwadracie: "))
                 else:
-                    square = randint(0, 8)
-                    field = randint(0, 8)
-                    # square, field = AI.defense(square, field, game.board, game.player)
+                    # square = randint(0, 8)
+                    # field = randint(0, 8)
+                    if check_which_better(game.board, square, game.player):
+                        square, field = game.computer.defense(game.board, square, game.player)
+                    else:
+                        square, field = game.computer.offense(game.board, player)
                 try:
                     if game.check_if_not_filled(square, field):
                         if game.check_if_winned(square):
                             if person == player:
                                 print("This square is already winned")
-                            continue
+                                continue
+                            # else:
+                            #     if not check_which_better(game.board, square, game.player):
+                            #         square, field = game.computer.defense(game.board, square, game.player)
+                            #     else:
+                            #         square, field = game.computer.offense(game.board)
                         else:
                             game.board.set(square, field, person.sign)
+                            round += 1
                             break
                     else:
                         if person == player:
@@ -55,8 +66,9 @@ while game.result is None:
                     print("Must be a number from 0 to 8")
             except ValueError:
                 continue
-        if game.checking_if_win_square(person, square):
-            if game.checking_if_win_square(person, game.board):
+        if checking_if_win_square(game.board, person, square):
+            person.winned_squares.append(game.board.areas[square])
+            if checking_if_win_square(game.board, person):
                 if person == game.player:
                     game._result = True
                 else:
