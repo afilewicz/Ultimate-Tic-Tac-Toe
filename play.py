@@ -71,13 +71,13 @@ while game.result is None:
             if checking_if_win_square(game.board, person, square):
                 person.winned_squares.append(game.board.areas[square])
                 if checking_if_win_square(game.board, person):
-                    game.winner = person
+                    game._winner = person
                     game._result = True
         else:
             game._result = False
 game.board.draw_board()
 if game.result is True:
-    print(f"The winner is {player.name}")
+    print(f"The winner is {game.winner.name}")
 else:
     print("The winner is computer")
 sleep(5)
