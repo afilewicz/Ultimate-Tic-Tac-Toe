@@ -1,4 +1,4 @@
-from board import BigBoard, dimension
+from board import BigBoard
 from player import Player
 from computer import Computer
 
@@ -14,6 +14,7 @@ class Game:
             self.computer._sign = 'O'
         else:
             self.computer._sign = 'X'
+        self._winner = None
 
     @property
     def player(self):
@@ -31,11 +32,9 @@ class Game:
     def result(self):
         return self._result
 
-    def check_if_not_filled(self, square, field):
-        if self.board.areas[square].areas[field] == ' ':
-            return True
-        else:
-            return False
+    @property
+    def winner(self):
+        return self._winner
 
     def check_if_winned(self, square):
         if self.board.areas[square] in self.computer.winned_squares or\

@@ -4,7 +4,8 @@ from game import Game
 from time import sleep
 from random import randint
 from AI import AI
-from check import check_which_better, checking_if_win_square
+from check import check_which_better, checking_if_win_square, check_if_not_filled
+from check import check_if_not_a_draw
 
 
 class EmptyNameError(Exception):
@@ -40,12 +41,12 @@ while game.result is None:
                 else:
                     # square = randint(0, 8)
                     # field = randint(0, 8)
-                    if check_which_better(game.board, square, game.player):
+                    if check_which_better(game.board, square, game.player, game.computer):
                         square, field = game.computer.defense(game.board, square, game.player)
                     else:
                         square, field = game.computer.offense(game.board, player)
                 try:
-                    if game.check_if_not_filled(square, field):
+                    if check_if_not_filled(game.board, square, field):
                         if game.check_if_winned(square):
                             if person == player:
                                 print("This square is already winned")
@@ -66,13 +67,14 @@ while game.result is None:
                     print("Must be a number from 0 to 8")
             except ValueError:
                 continue
-        if checking_if_win_square(game.board, person, square):
-            person.winned_squares.append(game.board.areas[square])
-            if checking_if_win_square(game.board, person):
-                if person == game.player:
+        if check_if_not_a_draw(game.board):
+            if checking_if_win_square(game.board, person, square):
+                person.winned_squares.append(game.board.areas[square])
+                if checking_if_win_square(game.board, person):
+                    game.winner = person
                     game._result = True
-                else:
-                    game._result = False
+        else:
+            game._result = False
 game.board.draw_board()
 if game.result is True:
     print(f"The winner is {player.name}")

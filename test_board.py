@@ -11,4 +11,4 @@ def test_board_init():
 def test_set():
     board = BigBoard()
     board.set(1, 7, 'O')
-    assert board.areas[1].single_arr[7] == 'O'
+    assert board.areas[1].areas[7] == 'O'

@@ -28,8 +28,15 @@ from board import dimension
 #         return any
 
 
+def check_if_not_filled(board, square, field):
+    if board.areas[square].areas[field] == ' ':
+        return True
+    else:
+        return False
+
+
 def checking_if_win_square(board, person, square=None):
-    if square != None:
+    if square is not None:
         fields = person.sign
         board = board.areas[square]
     else:
@@ -56,9 +63,25 @@ def checking_if_win_square(board, person, square=None):
     for counter in any:
         if counter == dimension:
             return True
+    return False
+
+
+def check_if_not_full(board, square):
+    for field in board.areas[square].areas:
+        if field == " ":
+            return True
+    return False
+
+
+def check_if_not_a_draw(board):
+    for square in range(dimension**2):
+        if check_if_not_full(board, square):
+            return True
+    return False
 
 
 def check(board, square, person):
+    # returns list of sequences (rows, columns and diagonals) for outlined square
     fields = person.sign
     board = board.areas[square]
     columns = []
@@ -83,6 +106,7 @@ def check(board, square, person):
 
 
 def search_max(board, square, person):
+    # returns number of sequence closest to win for player in square
     any = check(board, square, person)
     max_list = []
     max_ = max(any)
@@ -92,9 +116,17 @@ def search_max(board, square, person):
     return max_list
 
 
-def check_which_better(board, square, player):
-    any = check(board, square, player)
-    if 2 in any:
-        return True
-    else:
+def check_which_better(board, square, player, computer):
+    if checking_if_win_square(board, player, square) or\
+            checking_if_win_square(board, computer, square):
         return False
+    else:
+        have_to_cover = False
+        any_player = check(board, square, player)
+        any_computer = check(board, square, computer)
+        for index, sequence in enumerate(any_computer):
+            if sequence == 2 and any_player[index] == 0:
+                return False
+            if any_player[index] == 2 and sequence == 0:
+                have_to_cover = True
+        return have_to_cover
