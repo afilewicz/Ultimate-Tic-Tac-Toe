@@ -1,16 +1,16 @@
-class Computer:
-    def __init__(self):
-        self._sign = ''
-        self._name = 'computer'
-        self.winned_squares = []
+# class Computer:
+#     def __init__(self):
+#         self._sign = None
+#         self._name = 'computer'
+#         self.winned_squares = []
 
-    @property
-    def sign(self):
-        return self._sign
+#     @property
+#     def sign(self):
+#         return self._sign
 
-    def set_sign(self, sign):
-        self._sign = sign
+#     def set_sign(self, sign):
+#         self._sign = sign
 
-    @property
-    def name(self):
-        return self._name
+#     @property
+#     def name(self):
+#         return self._name

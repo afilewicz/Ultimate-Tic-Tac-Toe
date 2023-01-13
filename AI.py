@@ -1,4 +1,4 @@
-from computer import Computer
+from player import Player
 from random import choice, randint
 from board import dimension
 from check import check, search_max, checking_if_win_square, check_if_not_filled
@@ -14,20 +14,20 @@ answers_2 = {
     7: [2, 4, 6]
 }
 
-moves = {
-    0: [0, 3, 6],
-    1: [1, 3],
-    2: [2, 3, 7],
-    3: [0, 4],
-    4: [1, 4, 6, 7],
-    5: [2, 4],
-    6: [0, 5, 7],
-    7: [1, 5],
-    8: [2, 5, 6]
-}
+# moves = {
+#     0: [0, 3, 6],
+#     1: [1, 3],
+#     2: [2, 3, 7],
+#     3: [0, 4],
+#     4: [1, 4, 6, 7],
+#     5: [2, 4],
+#     6: [0, 5, 7],
+#     7: [1, 5],
+#     8: [2, 5, 6]
+# }
 
 
-class AI(Computer):
+class AI(Player):
     def __init__(self):
         super().__init__()
         self.player_moves = []
@@ -50,15 +50,15 @@ class AI(Computer):
 
     def offense(self, board, player):
         answers = {
-    0: [0, 3, 6],
-    1: [1, 4, 7],
-    2: [2, 5, 8],
-    3: [0, 1, 2],
-    4: [3, 4, 5],
-    5: [6, 7, 8],
-    6: [0, 4, 8],
-    7: [2, 4, 6]
-}
+            0: [0, 3, 6],
+            1: [1, 4, 7],
+            2: [2, 5, 8],
+            3: [0, 1, 2],
+            4: [3, 4, 5],
+            5: [6, 7, 8],
+            6: [0, 4, 8],
+            7: [2, 4, 6]
+        }
         list_of_signed = []
         list_of_signed_two_times = []
         list_of_not_full = []
@@ -70,9 +70,10 @@ class AI(Computer):
                 if check_if_not_full(board, index):
                     max_from_square_list = search_max(board, index, self)
                     list_of_not_full.append(index)
-                    if len(max_from_square_list) == (2*dimension+1):
+                    # czy mozna zrobic tak ze nie odroznia gdy jest 1 lub 2 w danym kwadracie
+                    if len(max_from_square_list) <= 4 and 4 in max_from_square_list:
                         list_of_signed.append(index)
-                    if len(max_from_square_list) < (2*dimension+1):
+                    elif len(max_from_square_list) < (2*dimension+1):
                         list_of_signed_two_times.append(index)
         if len(list_of_signed_two_times) == 0:
             if len(list_of_signed) == 0:
@@ -81,6 +82,7 @@ class AI(Computer):
                 com_square = choice(list_of_signed)
         else:
             com_square = choice(list_of_signed_two_times)
+
         computer_maxes = check(board, com_square, self)
         list_of_index_to_move = []
         computer_best = max(computer_maxes)

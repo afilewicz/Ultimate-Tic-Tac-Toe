@@ -26,7 +26,9 @@ class InvalidSignError(Exception):
 # sign = sign.upper()
 # if sign not in ['X', 'O']:
 #     raise InvalidSignError("Sign must be a 'X' or 'O'")
-player = Player(name='Adam', sign='X')
+sign = 'X'
+player = Player(name='Adam')
+player.set_sign(sign)
 computer = AI()
 game = Game(player, computer)
 round = 0
@@ -81,3 +83,4 @@ if game.result is True:
 else:
     print("The winner is computer")
 sleep(5)
+# usuniecie ruchu komputera po ewentualnej wygranej przeze mnie

@@ -1,7 +1,7 @@
 class Player:
-    def __init__(self, name, sign):
+    def __init__(self, name):
         self._name = name
-        self._sign = sign
+        self._sign = None
         self.winned_squares = []
 
     @property
@@ -11,3 +11,6 @@ class Player:
     @property
     def sign(self):
         return self._sign
+
+    def set_sign(self, sign):
+        self._sign = sign

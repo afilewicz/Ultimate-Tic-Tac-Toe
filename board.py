@@ -1,11 +1,41 @@
-from pojedyncza_plansza import Single_Board, dimension
+from pojedyncza_plansza import dimension
 
+len_single = 19
 width_board = 6*dimension**2 + dimension
+
+
+class Sign:
+    def __init__(self):
+        self._field = ' '
+
+    def field(self):
+        return self._field
+
+
+class Board:
+    def __init__(self):
+        self._areas = []
+        for field in range(dimension**2):
+            element = ' '
+            self._areas.append(element)
+
+
+class Single_Board:
+    def __init__(self):
+        self._field = Sign()
+        self._areas = []
+        for field in range(dimension**2):
+            self._areas.append(element)
+
+    @property
+    def areas(self):
+        return self._areas
 
 
 class BigBoard:
 
     def __init__(self):
+        self._field = Single_Board()
         self._areas = []
         for square in range(dimension**2):
             element = Single_Board()
@@ -33,7 +63,7 @@ class BigBoard:
         return self._areas
 
     def set(self, square, mini_square_num, sign):
-        self._areas[square]._areas[mini_square_num] = sign
+        self._areas[square]._areas[mini_square_num]._field = sign
 
 
 board = BigBoard()

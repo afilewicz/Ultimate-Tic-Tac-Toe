@@ -1,4 +1,3 @@
-len_single = 19
 dimension = 3
 
 

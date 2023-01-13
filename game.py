@@ -4,7 +4,7 @@ from computer import Computer
 
 
 class Game:
-    def __init__(self, player: Player, computer: Computer):
+    def __init__(self, player: Player, computer: Player):
         self.board = BigBoard()
         self._player = player
         self._computer = computer
