@@ -1,6 +1,5 @@
 from game import Game
 from player import Player
-from computer import Computer
 from board import BigBoard, dimension
 
 

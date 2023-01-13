@@ -1,6 +1,5 @@
 from board import BigBoard
 from player import Player
-from computer import Computer
 
 
 class Game:
@@ -36,12 +35,6 @@ class Game:
     def winner(self):
         return self._winner
 
-    def check_if_winned(self, square):
-        if self.board.areas[square] in self.computer.winned_squares or\
-                self.board.areas[square] in self.player.winned_squares:
-            return True
-        else:
-            return False
 
     # def player_move(self):
     #     while True:
