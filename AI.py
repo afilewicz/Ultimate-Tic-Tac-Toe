@@ -110,13 +110,13 @@ class AI(Player):
                 if sequence == computer_best:
                     list_of_index_to_move.append(index)
             while list_of_index_to_move:
-                x = choice(list_of_index_to_move)
-                y = answers[x]
-                com_field = choice(y)
-                if not board.areas[com_square].check_if_not_filled(com_field) and com_field in y:
-                    y.remove(com_field)
-                    if len(y) == 0:
-                        list_of_index_to_move.remove(x)
+                choice_from_best_moves = choice(list_of_index_to_move)
+                possible_answer = answers[choice_from_best_moves]
+                com_field = choice(possible_answer)
+                if com_field in possible_answer and not board.areas[com_square].check_if_not_filled(com_field):
+                    possible_answer.remove(com_field)
+                    if len(possible_answer) == 0:
+                        list_of_index_to_move.remove(choice_from_best_moves)
                 else:
                     break
             if board.areas[com_square].check_if_not_filled(com_field):

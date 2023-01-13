@@ -33,7 +33,7 @@ class Single_Board(Board):
         return False
 
     def check(self, person):
-        # returns list of sequences (rows, columns and diagonals) for outlined square
+        # returns list of sequences (rows, columns and diagonals)
         columns = []
         rows = []
         diagonals = [0, 0]
@@ -76,6 +76,7 @@ class Single_Board(Board):
                 self.checking_if_win_square(computer):
             return False
         else:
+            can_cover = 0
             have_to_cover = False
             any_player = self.check(player)
             any_computer = self.check(computer)
@@ -84,6 +85,9 @@ class Single_Board(Board):
                     return False
                 if any_player[index] == 2 and sequence == 0:
                     have_to_cover = True
+                    can_cover += 1
+                    if can_cover == 2:
+                        return False
             return have_to_cover
 
 

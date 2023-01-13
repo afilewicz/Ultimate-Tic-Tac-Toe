@@ -8,11 +8,11 @@ class Game:
         self._player = player
         self._computer = computer
         self._players = [player, computer]
-        self._result = None
         if self.player.sign == 'X':
             self.computer._sign = 'O'
         else:
             self.computer._sign = 'X'
+        self._result = None
         self._winner = None
 
     @property
