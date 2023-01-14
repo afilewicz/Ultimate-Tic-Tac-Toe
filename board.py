@@ -32,7 +32,7 @@ class Single_Board(Board):
                 return True
         return False
 
-    def check(self, person):
+    def check_how_many_in_sequence(self, person):
         # returns list of sequences (rows, columns and diagonals)
         columns = []
         rows = []
@@ -55,21 +55,21 @@ class Single_Board(Board):
         return any
 
     def checking_if_win_square(self, person):
-        any = self.check(person)
+        any = self.check_how_many_in_sequence(person)
         for counter in any:
             if counter == dimension:
                 return True
         return False
 
-    def search_max(self, person):
+    def search_max_list(self, person):
         # returns number of sequence closest to win for player in square
-        any = self.check(person)
+        any = self.check_how_many_in_sequence(person)
         max_list = []
         max_ = max(any)
         for index, element in enumerate(any):
             if element == max_:
                 max_list.append(index)
-        return max_list
+        return max_list, max_
 
     def check_which_better(self, player, computer):
         if self.checking_if_win_square(player) or\
@@ -78,8 +78,8 @@ class Single_Board(Board):
         else:
             can_cover = 0
             have_to_cover = False
-            any_player = self.check(player)
-            any_computer = self.check(computer)
+            any_player = self.check_how_many_in_sequence(player)
+            any_computer = self.check_how_many_in_sequence(computer)
             for index, sequence in enumerate(any_computer):
                 if sequence == 2 and any_player[index] == 0:
                     return False

@@ -70,8 +70,10 @@ while game.result is None:
                 if board.as_a_small.checking_if_win_square(person):
                     game._winner = person
                     game._result = True
+                    break
         else:
             game._result = False
+            break
 board.draw_board()
 if game.result is True:
     print(f"Zwycięzcą został/a {game.winner.name}")

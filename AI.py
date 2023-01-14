@@ -1,6 +1,6 @@
 from player import Player
 from random import choice, randint
-from board import dimension
+from constants import dimension
 
 
 def make_dict_of_answers():
@@ -63,11 +63,41 @@ class AI(Player):
         #     com_square = randint(0, dimension**2)
         # else:
         com_square = square
-        player_max = board.areas[square].search_max(player)
+        player_max = board.areas[square].search_max_list(player)[0]
         com_field = choice(answers_2[choice(player_max)])
         return com_square, com_field
 
+    def choose_square(self, board, player):
+        com_square = None
+        list_of_best = {}
+        for i in range(dimension):
+            list_of_best[dimension-1-i] = []
+        list_of_not_full = []
+        for index in range(dimension**2):
+            if board.areas[index].checking_if_win_square(player) or\
+                    board.areas[index].checking_if_win_square(self):
+                continue
+            else:
+                if board.areas[index].check_if_not_full():
+                    list_of_not_full.append(index)
+                    max_from_square_list = board.areas[index].search_max_list(self)[1]
+                    for i in range(dimension):
+                        if (dimension-1-i) == max_from_square_list:
+                            list_of_best[dimension-1-i].append(index)
+        if len(list_of_not_full) == len(list_of_best[0]):
+            com_square = self.choose_field_in_square(board.as_a_small)
+            return com_square
+        for key in list_of_best:
+            if len(list_of_best[key]) != 0:
+                com_square = choice(list_of_best[key])
+                return com_square
+
     def offense(self, board, player):
+        com_square = self.choose_square(board, player)
+        com_field = self.choose_field_in_square(board.areas[com_square])
+        return com_square, com_field
+
+    def choose_field_in_square(self, board):
         answers = {
             0: [0, 3, 6],
             1: [1, 4, 7],
@@ -78,31 +108,7 @@ class AI(Player):
             6: [0, 4, 8],
             7: [2, 4, 6]
         }
-        list_of_signed = []
-        list_of_signed_two_times = []
-        list_of_not_full = []
-        for index in range(dimension**2):
-            if board.areas[index].checking_if_win_square(player) or\
-                    board.areas[index].checking_if_win_square(self):
-                continue
-            else:
-                if board.areas[index].check_if_not_full():
-                    max_from_square_list = board.areas[index].search_max(self)
-                    list_of_not_full.append(index)
-                    # czy mozna zrobic tak ze nie odroznia gdy jest 1 lub 2 w danym kwadracie
-                    if len(max_from_square_list) <= 4 and 4 in max_from_square_list:
-                        list_of_signed.append(index)
-                    elif len(max_from_square_list) < (2*dimension+1):
-                        list_of_signed_two_times.append(index)
-        if len(list_of_signed_two_times) == 0:
-            if len(list_of_signed) == 0:
-                com_square = choice(list_of_not_full)
-            else:
-                com_square = choice(list_of_signed)
-        else:
-            com_square = choice(list_of_signed_two_times)
-
-        computer_maxes = board.areas[com_square].check(self)
+        computer_maxes = board.check_how_many_in_sequence(self)
         list_of_index_to_move = []
         computer_best = max(computer_maxes)
         while True:
@@ -113,14 +119,15 @@ class AI(Player):
                 choice_from_best_moves = choice(list_of_index_to_move)
                 possible_answer = answers[choice_from_best_moves]
                 com_field = choice(possible_answer)
-                if com_field in possible_answer and not board.areas[com_square].check_if_not_filled(com_field):
+                if board.check_if_not_filled(com_field):
+                    return com_field
+                else:
                     possible_answer.remove(com_field)
                     if len(possible_answer) == 0:
                         list_of_index_to_move.remove(choice_from_best_moves)
-                else:
-                    break
-            if board.areas[com_square].check_if_not_filled(com_field):
-                return com_square, com_field
+            computer_best -= 1
+
+
             # else:
             #     if len(list_of_index_to_move) > 0:
             #         for e in moves[com_field]:
@@ -129,7 +136,7 @@ class AI(Player):
             #         if len(list_of_index_to_move) == 0:
             #             computer_best -= 1
             #     else:
-            computer_best -= 1
+
 
     # def defense(self, square, field, board, player):
 
