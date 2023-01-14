@@ -57,25 +57,34 @@ class AI(Player):
             for field in range(dimension**2):
                 self.player_moves[square].append([])
 
-    def defense(self, board, square, player):
-        # if board.areas[square].checking_if_win_square(player) or\
-        #         board.areas[square].checking_if_win_square(self):
-        #     com_square = randint(0, dimension**2)
-        # else:
+    def defense(self, board, square, sequence_number):
+        answers_3 = {
+            0: [0, 3, 6],
+            1: [1, 4, 7],
+            2: [2, 5, 8],
+            3: [0, 1, 2],
+            4: [3, 4, 5],
+            5: [6, 7, 8],
+            6: [0, 4, 8],
+            7: [2, 4, 6]
+        }
         com_square = square
-        player_max = board.areas[square].search_max_list(player)[0]
-        com_field = choice(answers_2[choice(player_max)])
-        return com_square, com_field
+        while True:
+            field_choice = choice(answers_3[sequence_number])
+            if board.areas[com_square].check_if_not_filled(field_choice):
+                com_field = field_choice
+                return com_square, com_field
+            else:
+                answers_3[sequence_number].remove(field_choice)
 
-    def choose_square(self, board, player):
+    def choose_square(self, board):
         com_square = None
         list_of_best = {}
         for i in range(dimension):
             list_of_best[dimension-1-i] = []
         list_of_not_full = []
         for index in range(dimension**2):
-            if board.areas[index].checking_if_win_square(player) or\
-                    board.areas[index].checking_if_win_square(self):
+            if board.check_if_winned(index):
                 continue
             else:
                 if board.areas[index].check_if_not_full():
@@ -92,8 +101,8 @@ class AI(Player):
                 com_square = choice(list_of_best[key])
                 return com_square
 
-    def offense(self, board, player):
-        com_square = self.choose_square(board, player)
+    def offense(self, board):
+        com_square = self.choose_square(board)
         com_field = self.choose_field_in_square(board.areas[com_square])
         return com_square, com_field
 
@@ -126,7 +135,8 @@ class AI(Player):
                     if len(possible_answer) == 0:
                         list_of_index_to_move.remove(choice_from_best_moves)
             computer_best -= 1
-
+# zgodnie z moją implementacją nawet jeśli gracz ma pewną wygraną w obu miejscach, ale tego nie zauważy\
+#  i atakuje w innym kwadracie, to komputer stawia swoj znak w tym kwadracie probując go wygrać
 
             # else:
             #     if len(list_of_index_to_move) > 0:

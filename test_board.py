@@ -9,7 +9,7 @@ computer = AI()
 computer.set_sign('O')
 
 
-def test__big_board_init():
+def test_big_board_init():
     Bigboard = BigBoard()
     assert len(Bigboard.areas) == dimension**2
     for area in Bigboard.areas:

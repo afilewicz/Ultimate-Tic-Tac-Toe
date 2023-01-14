@@ -74,19 +74,24 @@ class Single_Board():
                 self.checking_if_win_square(computer):
             return False
         else:
-            can_cover = 0
+            # can_cover = 0
             have_to_cover = False
             any_player = self.check_how_many_in_sequence(player)
             any_computer = self.check_how_many_in_sequence(computer)
             for index, sequence in enumerate(any_computer):
                 if sequence == dimension-1 and any_player[index] == 0:
-                    return False
+                    sequence_number = index
+                    return False, sequence_number
                 if any_player[index] == dimension-1 and sequence == 0:
+                    sequence_number = index
                     have_to_cover = True
-                    can_cover += 1
-                    if can_cover == 2:
-                        return False
-            return have_to_cover
+                    # can_cover += 1
+                    # if can_cover == 2:
+                    #     return False
+            if have_to_cover:
+                return True, sequence_number
+            else:
+                return False
 
 
 class BigBoard():

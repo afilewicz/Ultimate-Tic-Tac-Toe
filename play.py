@@ -43,9 +43,10 @@ while game.result is None:
                     # square = randint(0, 8)
                     # field = randint(0, 8)
                     if board.areas[square].check_which_better(game.player, game.computer):
-                        square, field = game.computer.defense(board, square, game.player)
+                        sequence_number = board.areas[square].check_which_better(game.player, game.computer)[1]
+                        square, field = game.computer.defense(board, square, sequence_number)
                     else:
-                        square, field = game.computer.offense(board, player)
+                        square, field = game.computer.offense(board)
                 try:
                     if board.areas[square].check_if_not_filled(field):
                         if board.check_if_winned(square):
@@ -65,7 +66,6 @@ while game.result is None:
                 continue
         if board.as_a_small.check_if_not_full():
             if board.areas[square].checking_if_win_square(person):
-                person.winned_squares.append(board.areas[square])
                 board.as_a_small.set(square, person.sign)
                 if board.as_a_small.checking_if_win_square(person):
                     game._winner = person

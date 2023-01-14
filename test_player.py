@@ -1,32 +1,12 @@
 from player import Player
-# import pytest
-
-
-# def test_player_default():
-#     player = Player('Adam')
-#     assert player.name == 'Adam'
-#     assert player.sign == 'X'
 
 
 def test_player():
-    player = Player('Adam', 'O')
+    player = Player('Adam')
     assert player.name == 'Adam'
-    assert player.sign == 'O'
 
 
-# def test_init_player_no_name():
-#     with pytest.raises(EmptyNameError):
-#         Player()
-
-
-# def test_init_player_invalid_sign():
-#     with pytest.raises(InvalidSignError):
-#         Player('Adam', '@')
-
-
-# def test_player_move():
-#     player = Player('Adam', 'O')
-#     game = Game(player, computer=Computer)
-#     square = 7
-#     field = 3
-#     player.move(game)
+def test_set_sign():
+    player = Player('Adam')
+    player.set_sign('X')
+    assert player.sign == 'X'

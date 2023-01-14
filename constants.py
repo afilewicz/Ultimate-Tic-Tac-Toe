@@ -1,1 +1,1 @@
-dimension = 4
+dimension = 3
