@@ -99,7 +99,7 @@ def test_check_which_better_default_true():
     for i in range(dimension**2-1):
         if i % (dimension + 1) == 0:
             board.areas[3].set(i, player.sign)
-    assert board.areas[3].check_which_better(player, computer) is True
+    assert board.areas[3].check_which_better(player, computer) == (True, dimension*2)
 
 
 def test_check_which_better_default_false():

@@ -2,41 +2,37 @@ from player import Player
 # from computer import Computer
 from game import Game
 from time import sleep
-from random import randint
 from AI import AI
-
-
-class EmptyNameError(Exception):
-    def __init__(self):
-        super().__init__('Name cannot be empty')
 
 
 class InvalidSignError(Exception):
     pass
 
 
-# print("Enter your name:")
-# name = input()
-# if not name:
-#     raise EmptyNameError
-# print("Enter your sign. Must be 'X' or 'O'")
-# sign = input()
-# sign = sign.upper()
-# if sign not in ['X', 'O']:
-#     raise InvalidSignError("Sign must be a 'X' or 'O'")
-sign = 'X'
-player = Player('Adam')
+name = input("Wprowadź swoje imię: ")
+while True:
+    try:
+        print("Wpisz swój znak. Ma to być 'X' lub 'O'")
+        sign = input()
+        sign = sign.upper()
+        if sign not in ['X', 'O']:
+            raise InvalidSignError("Sign must be a 'X' or 'O'")
+        else:
+            break
+    except InvalidSignError:
+        pass
+player = Player(name)
 player.set_sign(sign)
 computer = AI()
 game = Game(player, computer)
-round = 0
 board = game.board
 while game.result is None:
-    board.draw_board()
+    square = 0
     for person in game.players:
         while True:
             try:
                 if person == player:
+                    board.draw_board()
                     square = int(input("Wprowadź numer kwadratu: "))
                     field = int(input("Wprowadź numer kwadratu w kwadracie: "))
                 else:
@@ -55,7 +51,6 @@ while game.result is None:
                                 continue
                         else:
                             board.areas[square].set(field, person.sign)
-                            round += 1
                             break
                     else:
                         if person == player:
@@ -67,6 +62,7 @@ while game.result is None:
         if board.as_a_small.check_if_not_full():
             if board.areas[square].checking_if_win_square(person):
                 board.as_a_small.set(square, person.sign)
+                print(f"Kwadrat nr {square} został wygrany.")
                 if board.as_a_small.checking_if_win_square(person):
                     game._winner = person
                     game._result = True
@@ -84,4 +80,3 @@ if game.result is True:
 else:
     print("Nie ma zwycięzcy")
 sleep(5)
-# usuniecie ruchu komputera po ewentualnej wygranej przeze mnie
