@@ -1,5 +1,5 @@
 from player import Player
-from random import choice, randint
+from random import choice
 from constants import dimension
 
 
@@ -31,18 +31,6 @@ answers_2 = make_dict_of_answers()
 #     5: [6, 7, 8],
 #     6: [0, 4, 8],
 #     7: [2, 4, 6]
-# }
-
-# moves = {
-#     0: [0, 3, 6],
-#     1: [1, 3],
-#     2: [2, 3, 7],
-#     3: [0, 4],
-#     4: [1, 4, 6, 7],
-#     5: [2, 4],
-#     6: [0, 5, 7],
-#     7: [1, 5],
-#     8: [2, 5, 6]
 # }
 
 
@@ -99,6 +87,7 @@ class AI(Player):
         for key in list_of_best:
             if len(list_of_best[key]) != 0:
                 com_square = choice(list_of_best[key])
+                print(com_square)
                 return com_square
 
     def offense(self, board):
@@ -137,35 +126,3 @@ class AI(Player):
             computer_best -= 1
 # zgodnie z moją implementacją nawet jeśli gracz ma pewną wygraną w obu miejscach, ale tego nie zauważy\
 #  i atakuje w innym kwadracie, to komputer stawia swoj znak w tym kwadracie probując go wygrać
-
-            # else:
-            #     if len(list_of_index_to_move) > 0:
-            #         for e in moves[com_field]:
-            #             if e in list_of_index_to_move:
-            #                 list_of_index_to_move.remove(e)
-            #         if len(list_of_index_to_move) == 0:
-            #             computer_best -= 1
-            #     else:
-
-
-    # def defense(self, square, field, board, player):
-
-    #     com_square = square
-    #     if len(self.player_moves[square]) == 1:
-    #         if field == 4:
-    #             com_field = choice([0, 2, 6, 8])
-    #         else:
-    #             com_field = 4
-    #     elif len(self.player_moves[square]) == 2:
-    #         if 4 in self.player_moves[square]:
-    #             com_field = 8 - field
-    #         else:
-    #             com_field = choice([3, 5])
-    #     elif len(self.player_moves[square]) == 3:
-    #         if 4 in self.player_moves[square]:
-    #             com_field = 8 - field
-    #     elif len(self.player_moves[square]) == 4:
-    #         if 4 in self.player_moves[square]:
-    #             com_field = 8 - field
-    #     self.moves.append(com_field)
-    #     return com_square, com_field

@@ -71,9 +71,13 @@ while game.result is None:
                     game._winner = person
                     game._result = True
                     break
-        else:
-            game._result = False
-            break
+            if not board.areas[square].check_if_not_full()\
+                    and board.as_a_small.areas[square] == ' ':
+                board.as_a_small.set(square, 'full')
+                print('Kwadrat zremisowany')
+            if not board.as_a_small.check_if_not_full():
+                game._result = False
+                break
 board.draw_board()
 if game.result is True:
     print(f"Zwycięzcą został/a {game.winner.name}")
