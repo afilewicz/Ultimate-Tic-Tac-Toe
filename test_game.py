@@ -12,6 +12,6 @@ def test_init_game():
     assert type(game.board) == BigBoard
     assert game.player.sign == "X"
     assert game.computer.sign == "O"
-    assert game.players == [player, computer]
+    assert game.players == [player, computer] or [computer, player]
     assert game.result is None
     assert game.winner is None

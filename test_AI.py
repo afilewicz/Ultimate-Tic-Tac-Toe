@@ -25,7 +25,7 @@ def test_make_dict_of_answers_3():
 def test_computer_init():
     computer = AI()
     computer.set_sign('X')
-    assert computer.name == 'computer'
+    assert computer.name == 'komputer'
     assert computer.sign == 'X'
 
 
