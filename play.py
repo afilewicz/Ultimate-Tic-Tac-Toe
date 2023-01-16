@@ -3,16 +3,14 @@ from computer import Computer
 from game import Game
 from time import sleep
 from AI import AI
-import pygame as pg
-import sys
 
-
-square = 0
 
 class InvalidSignError(Exception):
     pass
 
+
 def main():
+    square = 0
     name = input("Wprowadź swoje imię: ")
     while True:
         try:
