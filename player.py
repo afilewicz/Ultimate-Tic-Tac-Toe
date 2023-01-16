@@ -1,8 +1,10 @@
 class Player:
     def __init__(self, name):
-        self._name = name
+        if not name:
+            self._name = 'gracz'
+        else:
+            self._name = name
         self._sign = None
-        self.winned_squares = []
 
     @property
     def name(self):
