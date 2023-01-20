@@ -2,10 +2,18 @@ from constants import DIMENSION
 
 
 class Single_Board():
-    """
+
+    """ Description
+
     Represents a Single Tic Tac Toe Board.
     """
     def __init__(self):
+
+        """ Description
+
+        Creates a square of empty fields.
+
+        """
         self._areas = []
         for i in range(DIMENSION**2):
             self._areas.append(' ')
@@ -15,30 +23,54 @@ class Single_Board():
         return self._areas
 
     def set(self, field, sign):
-        """
-        Puts the player sign into given field.
+
+        """ Description
+
+        Puts the player sign into given field
+
+        :type field: int
+        :param field:
+
+        :type sign: Sign
+        :param sign:
+.
         """
         self.areas[field] = sign
 
     def filled(self, field):
-        """
+
+        """ Description
+
         Checks if given field is filled.
+
+        :type field: int
+        :param field:
+
         """
         return (not self.areas[field] == ' ')
 
     def full(self):
-        """
+
+        """ Description
+
         Checks if board is full.
+
         """
         for field in self.areas:
             if field == " ":
                 return False
         return True
 
-    def check_how_many_in_sequence(self, person):
-        """
+    def check_how_many_in_sequence(self, player):
+
+        """ Description
+
         Returns list of player signs in all sequences in given order:
         rows, columns and diagonals.
+
+        :type player: Player
+        :param player:
+
         """
         columns = []
         rows = []
@@ -47,7 +79,7 @@ class Single_Board():
             columns.append(0)
             rows.append(0)
         for i, field in enumerate(self.areas):
-            if field == person.sign:
+            if field == player.sign:
                 for number in range(DIMENSION):
                     if i % DIMENSION == number:
                         columns[number] += 1
@@ -60,20 +92,32 @@ class Single_Board():
         any = columns + rows + diagonals
         return any
 
-    def checking_if_win_square(self, person):
-        """
+    def checking_if_win_square(self, player):
+
+        """ Description
+
         Checks if square has been already won.
+
+        :type player: Player
+        :param player:
+
         """
-        any_max = self.search_max_list(person)[1]
+        any_max = self.search_max_list(player)[1]
         return (any_max == DIMENSION)
 
-    def search_max_list(self, person):
-        """
+    def search_max_list(self, player):
+
+        """ Description
+
         Searching for the maxes from the list of "how many in sequence",
         returns sequences which has the most signs and max value of signs
         in sequence.
+
+        :type player: Player
+        :param player:
+
         """
-        any = self.check_how_many_in_sequence(person)
+        any = self.check_how_many_in_sequence(player)
         max_list = []
         max_ = max(any)
         for index, element in enumerate(any):
@@ -82,10 +126,19 @@ class Single_Board():
         return max_list, max_
 
     def check_which_better(self, player, computer):
-        """
+
+        """ Description
+
         Checks which move is better (offensive or defensive).
         Returns true if offensive and false if defensive.
         When player has 2 sequences in one square to win it attacks.
+
+        :type player: Player
+        :param player:
+
+        :type computer: Computer
+        :param computer:
+
         """
         if self.checking_if_win_square(player) or\
                 self.checking_if_win_square(computer):
@@ -109,27 +162,45 @@ class Single_Board():
 
 
 class BigBoard():
-    """
+
+    """ Description
+
     Represents Board composed of Single Board.
-    Has a representation in SingleBoard class.
+    It has a representation in Single_Board class.
+
     """
     WIDTH_BOARD = 6*DIMENSION**2 + DIMENSION - 2
 
     def __init__(self):
+
+        """ Description
+
+        Creates a board of Single_Board objects.
+
+        """
         self._areas = []
         for i in range(DIMENSION**2):
             self._areas.append(Single_Board())
         self.as_a_small = Single_Board()
 
     def check_if_winned(self, square):
-        """
+
+        """ Description
+
         Checks if square had been won.
+
+        :type square: int
+        :param square:
+
         """
         return (self.as_a_small.areas[square] != ' ')
 
     def draw_board(self):
-        """
+
+        """ Description
+
         Draws the picture of big board.
+
         """
         for row in range(DIMENSION**2):
             if row % DIMENSION == 0:

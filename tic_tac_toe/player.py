@@ -1,8 +1,18 @@
 class Player:
-    """
-    Makes an instantion of player.
+
+    """ Description
+
+    Creates a player.
+
     """
     def __init__(self, name):
+
+        """ Description
+
+        :type name: string
+        :param name:
+
+        """
         if not name:
             self._name = 'gracz'
         else:

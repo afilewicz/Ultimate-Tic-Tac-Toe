@@ -4,8 +4,11 @@ from constants import DIMENSION
 
 
 def make_dict_of_answers():
-    """
+
+    """ Description
+
     Makes the dictionary of possible answers against the player's move.
+
     """
     answers = {}
     for i in range(DIMENSION*2 + 2):
@@ -25,15 +28,30 @@ def make_dict_of_answers():
 
 
 class AI(Player):
-    """
-    Makes an instance of computer that makes "intelligent" moves.
+
+    """ Description
+
+    Class of computer that makes "intelligent" moves.
+
     """
     def __init__(self):
         super().__init__(name='komputer')
 
     def defense(self, board, square, player):
-        """
+
+        """ Description
+
         Returns the defensive move. It requires player's last move.
+
+        :type board: BigBoard
+        :param board:
+
+        :type square: int
+        :param square:
+
+        :type player: Player
+        :param player:
+
         """
         answers_defense = make_dict_of_answers()
         com_square = square
@@ -51,8 +69,17 @@ class AI(Player):
                 answers_defense[sequence_number].remove(field_choice)
 
     def choose_square(self, board):
-        """
+
+        """ Description
+
         Looking for square which has the most signs.
+
+        :type self:
+        :param self:
+
+        :type board: BigBoard
+        :param board:
+
         """
         com_square = None
         list_of_best = {}
@@ -79,16 +106,28 @@ class AI(Player):
                 return com_square
 
     def offense(self, board):
-        """
+
+        """ Description
+
         Returns computer offensive move.
+
+        :type board: BigBoard
+        :param board:
+
         """
         com_square = self.choose_square(board)
         com_field = self.choose_field_in_square(board.areas[com_square])
         return com_square, com_field
 
     def choose_field_in_square(self, board):
-        """
+
+        """ Description
+
         Returns one of the best field to move in given single board.
+
+        :type board: Single_Board
+        :param board:
+
         """
         answers_offense = make_dict_of_answers()
         computer_maxes = board.check_how_many_in_sequence(self)

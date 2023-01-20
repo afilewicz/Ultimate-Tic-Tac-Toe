@@ -6,13 +6,16 @@ from AI import AI
 
 
 class InvalidSignError(Exception):
+
+    """ Description
+
+    Raises when sign is incorrect.
+
+    """
     pass
 
 
 def main():
-    """
-    Main loop of the program.
-    """
     square = 0
     name = input("Wprowadź swoje imię: ")
     while True:

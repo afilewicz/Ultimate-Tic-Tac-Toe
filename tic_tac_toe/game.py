@@ -6,11 +6,28 @@ from sign import Sign
 
 
 class Game:
-    """
-    Class game assigns chosen sign as a player sign and the other one
-    as a computer sign.
+
+    """ Description
+
+    Class of the game.
+
     """
     def __init__(self, player: Player, computer: Player, sign):
+
+        """ Description
+
+        Class game assigns chosen sign as a player sign and the other one
+        as a computer sign.
+        :type player: Player
+        :param player:
+
+        :type computer: Player
+        :param computer:
+
+        :type sign: Sign, string
+        :param sign:
+
+        """
         self.board = BigBoard()
         self._player = player
         self._computer = computer

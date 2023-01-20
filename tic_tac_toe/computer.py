@@ -4,15 +4,24 @@ from constants import DIMENSION
 
 
 class Computer(Player):
-    """
-    Makes an instance of computer player that makes random moves.
+
+    """ Description
+
+    Computer player that makes random moves.
+
     """
     def __init__(self):
         super().__init__('komputer')
 
     def random_move(self, board):
-        """
+
+        """ Description
+
         Returns random square and field on the board which is not filled.
+
+        :type board: BigBoard
+        :param board:
+
         """
         list_of_squares = []
         list_of_fields = []
