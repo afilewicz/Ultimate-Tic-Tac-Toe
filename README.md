@@ -1,92 +1,57 @@
-# Ultimate_tic_tac_toe
+## PIPR Projekt “Kółko i krzyżyk na sterydach”
 
 
 
-## Getting started
+## Cel projektu:
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Aplikacja “Kółko i krzyżyk na sterydach” ma pozwalać zagrać z graczem komputerowym, którego ruchy są losowe lub takim, który wykonuje ruchy według prostych reguł.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Opis projektu
 
-## Add your files
+To gra planszowa składająca się z dziewięciu plansz takich jak w standardowym kółko i krzyżyk ułożonych w siatkę 3 × 3. Gracze na zmianę grają na mniejszych planszach w kółko i krzyżyk, dopóki jeden z nich nie wygra na większej planszy.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Zaimplementowane klasy:
 
-```
-cd existing_repo
-git remote add origin https://gitlab-stud.elka.pw.edu.pl/afilewic/ultimate_tic_tac_toe.git
-git branch -M main
-git push -uf origin main
-```
+SingleBoard – tablica przechowująca pola, w których możliwe jest wstawienie znaku X lub O
 
-## Integrate with your tools
+BigBoard - jest to tablica złożona z obiektów klasy SingleBoard i ma swoją reprezentację w tej klasie
 
-- [ ] [Set up project integrations](https://gitlab-stud.elka.pw.edu.pl/afilewic/ultimate_tic_tac_toe/-/settings/integrations)
+Game – przyjmuje atrybuty (gracza i gracza komputerowego) , ustala kto ma zaczynać i przypisuje znak, który nie został wybrany przez człowieka komputerowi
 
-## Collaborate with your team
+Player – klasa reprezentująca gracza, posiada atrybuty takie jak znak czy nazwę, która domyślnie przyjęta jest jako ‘gracz’
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+AI – dziedziczy po klasie player; wykonuje ruchy na podstawie prostych reguł, posiada funkcje obronną i atakującą, decyzja, którą funkcję ma wybrać jest podejmowana na podstawie ostatniego ruchu wykonanego przez użytkownika
 
-## Test and Deploy
+Sign – zawiera znaki do wyboru przez gracza
 
-Use the built-in continuous integration in GitLab.
+Najważniejsze funkcje:
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Make_dict_of_answers – tworzy słownik odpowiedzi AI na ruchy gracza
 
-***
+Main - głowna pętla programu obsługująca komunikację z użytkownikiem
 
-# Editing this README
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Stała dimension – odpowiada za “wielkość” planszy, po edycji tej zmiennej możemy uzyskać np. planszę 16x16 czy 25x25
 
-## Name
-Choose a self-explaining name for your project.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Instrukcja użytkowania
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Przed rozgrywką:
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Po uruchomieniu programu należy wprowadzić swoje imię i zatwierdzić je enterem, naciśnięcie entera bez wpisania nazwy ustawi ja na domyślną (gracz). Po wprowadzeniu nazwy należy wybrać znak, którym użytkownik chce się posługiwać - czyli kółko lub krzyżyk. Wprowadzenie błędnego znaku spowoduje powtórzenie zapytania, natomiast znak wpisany jako mały zostanie zamieniony na duży. Następnie użytkownik zostanie poproszony o wprowadzenie ‘losowy’ jeśli chce grać z użytkownikiem losowym lub dowolnej innej sekwencji znaków, jeśli chce zagrać z graczem, który stawia opór.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Cel gry:
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Celem gry jest wygranie (zgodnie z zasadami kółka i krzyżyk) 3 dużych kwadratów (3x3 oddzielonych grubymi liniami) w jednej kolumnie, rzędzie lub po przekątnej na dużej planszy.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Rozgrywka:
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Użytkownik zostanie poproszony o wprowadzenie numeru dużego pola (kwadratu 3x3, są one oddzielone grubymi liniami), a później małego pola w wybranym kwadracie. Zostanie wstawiony znak gracza w wybrane pole i znak komputera w pole wybrane przez gracza komputerowego. Znak gracza jest zawsze w kolorze zielonym, natomiast komputera w czerwonym. Gra kończy się w momencie, w którym zgodnie z zasadami standardowego kółka i krzyżyk, gracz w jednej kolumnie, wierszu lub po przekątnej ułoży 3 duże pola (oddzielone pogrubionymi liniami). Wtedy zwycięzcą zostaje gracz, któremu udało się tego dokonać i wyświetla się komunikat: “Zwycięzcą został/a nazwa gracza”
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Część refleksyjna
 
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Zgodnie z początkowymi założeniami utworzyłem klasy opisane powyżej. W stosunku do planowanego rozwiązania zmieniłem to, że zdecydowałem się na rozbicie funkcji offense na dwie części: wybór pola dużego i dopiero potem małego. Ułatwia to wybranie właściwego kwadratu, w którym ilość pól zajętych przez gracza komputerowego jest największa. Podczas tworzenia programu okazało się, że przy pewnych ustawieniach gracz komputerowy nie wykonuje ruchu, co wywoływało zatrzymanie programu. Problemem w tym przypadku było to, że pominąłem dodawanie zapełnionych, ale nie wygranych przez żadnego z graczy pól jako pełne. W związku z tym po wybraniu dużego pola, nie było możliwości wstawienia znaku w żadne pole, więc komputer nie wykonywał ruchu. Rozwiązaniem okazało się wpisanie w reprezentacji dużego kwadratu jako małego w pole, które jest zapełnione ‘full’.
