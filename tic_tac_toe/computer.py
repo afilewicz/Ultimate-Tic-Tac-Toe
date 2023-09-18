@@ -34,7 +34,9 @@ class Computer(Player):
                 field = randint(0, DIMENSION**2-1)
                 if not board.areas[square].filled(field):
                     return square, field
-                else:
+                elif (field in list_of_fields):
                     list_of_fields.remove(field)
-            else:
+                else:
+                    continue
+            elif (square in list_of_squares):
                 list_of_squares.remove(square)

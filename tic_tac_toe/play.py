@@ -41,7 +41,6 @@ którego ruchy są losowe napisz 'l': ")
     game = Game(person, computer, sign)
     board = game.board
 
-
     while game.result is None:
         for player in game.players:
             while True:
